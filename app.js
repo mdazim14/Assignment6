@@ -26,8 +26,17 @@ const showImages = (images) => {
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
   })
-
 }
+
+document.getElementById("search-field")
+  .addEventListener("keypress", function (event) {
+      if (event.key == 'Enter') {
+        console.log(event.key)
+          document.getElementById("search-btn").click();
+      }
+  });
+
+
 
 const getImages = (query) => {
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
@@ -69,13 +78,6 @@ const createSlider = () => {
   // hide image aria
   imagesArea.style.display = 'none';
   const duration = document.getElementById('duration').value || 1000;
-
-
-  // if(duration <= 0){
-  //   alert("Negative Number is not allow");
-  // }
-
-  
 
   sliders.forEach(slide => {
     let item = document.createElement('div')
@@ -121,11 +123,17 @@ const changeSlide = (index) => {
 searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'none';
   clearInterval(timer);
-  const search = document.getElementById('search');
+  const search = document.getElementById('search-field');
   getImages(search.value)
   sliders.length = 0;
 })
 
 sliderBtn.addEventListener('click', function () {
-  createSlider()
+  if(duration.value < 0 ){
+    alert('Negative number is not allow!!!');
+  }
+  else{
+    createSlider();
+  }
+  
 })
