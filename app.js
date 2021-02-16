@@ -38,8 +38,6 @@ document.getElementById("search-field")
       }
   });
 
-
-
 const getImages = (query) => {
   toggleSpinner(true);
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
@@ -128,7 +126,7 @@ searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'none';
   clearInterval(timer);
   const search = document.getElementById('search-field');
-  // toggleSpinner(true)
+  
   getImages(search.value)
   sliders.length = 0;
 })
